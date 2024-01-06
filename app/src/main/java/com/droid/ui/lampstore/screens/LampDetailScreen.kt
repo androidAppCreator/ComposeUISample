@@ -113,7 +113,7 @@ fun LampDetailScreen(navController: NavController, viewModel: LampStoreViewModel
                         FilledIconButton(
                             modifier = Modifier
                                 .width(40.dp)
-                                .height(40.dp), onClick = { /*TODO*/ },
+                                .height(40.dp), onClick = { navController.popBackStack() },
                             colors = IconButtonDefaults.filledIconButtonColors(AlphaLightGrey)
                         ) {
                             Icon(Icons.Default.KeyboardArrowLeft, contentDescription = "Go Back", tint = Color.White, modifier = Modifier.clip(CircleShape))
