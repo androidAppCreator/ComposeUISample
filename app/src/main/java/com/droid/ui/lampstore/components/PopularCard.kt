@@ -41,6 +41,11 @@ import com.droid.ui.lampstore.ui.theme.CharcoalGrey
 import com.droid.ui.lampstore.ui.theme.Orange
 import com.droid.ui.lampstore.ui.theme.Yellow
 
+/**
+ * This function creates a card for each lamp in the list of lamps.
+ * @param lamps list of popular lamps
+ * @param onLampSelected function to give callback when card is click.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PopularCard(lamps: List<LampInfo>, onLampSelected: (lampInfo: LampInfo) -> Unit) {
@@ -73,13 +78,23 @@ fun PopularCard(lamps: List<LampInfo>, onLampSelected: (lampInfo: LampInfo) -> U
                         modifier = Modifier
                             .padding(16.dp)
                     ) {
-                        Text(text = lamp.title, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+                        Text(
+                            text = lamp.title,
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 14.sp
+                        )
                         Spacer(modifier = Modifier.padding(top = 5.dp))
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Icon(Icons.Default.Star, tint = Yellow, contentDescription = "Rating", modifier = Modifier.size(16.dp))
+                            Icon(
+                                Icons.Default.Star,
+                                tint = Yellow,
+                                contentDescription = "Rating",
+                                modifier = Modifier.size(16.dp)
+                            )
                             Spacer(modifier = Modifier.padding(horizontal = 2.dp))
                             Text(
                                 text = lamp.rating.toString(),
@@ -104,10 +119,18 @@ fun PopularCard(lamps: List<LampInfo>, onLampSelected: (lampInfo: LampInfo) -> U
                             FilledIconButton(
                                 modifier = Modifier
                                     .width(25.dp)
-                                    .height(25.dp), onClick = { /*TODO*/ },
+                                    .height(25.dp),
+                                onClick = { /*TODO*/ },
                                 colors = IconButtonDefaults.filledIconButtonColors(Orange),
                             ) {
-                                Icon(Icons.Filled.Add, contentDescription = "Add", tint = Color.White, modifier = Modifier.clip(CircleShape).padding(4.dp))
+                                Icon(
+                                    Icons.Filled.Add,
+                                    contentDescription = "Add",
+                                    tint = Color.White,
+                                    modifier = Modifier
+                                        .clip(CircleShape)
+                                        .padding(4.dp)
+                                )
                             }
                         }
                     }

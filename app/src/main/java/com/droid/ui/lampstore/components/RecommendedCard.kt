@@ -39,6 +39,11 @@ import com.droid.ui.lampstore.ui.theme.CharcoalGrey
 import com.droid.ui.lampstore.ui.theme.Orange
 import com.droid.ui.lampstore.ui.theme.Yellow
 
+/**
+ * This function creates a card for each lamp in the list of lamps.
+ * @param lamps list of recommended lamps
+ * @param onLampSelected function to give callback when card is click.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecommendedCard(lamps: List<LampInfo>, onLampSelected: (lampInfo : LampInfo) -> Unit) {

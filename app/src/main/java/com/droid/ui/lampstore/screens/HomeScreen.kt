@@ -43,12 +43,19 @@ import com.droid.ui.lampstore.ui.theme.DarkCharcoalGrey
 import com.droid.ui.lampstore.ui.theme.Orange
 import com.droid.ui.lampstore.viewmodel.LampStoreViewModel
 
+/**
+ * This function creates the HomeScreen.
+ * Contains top sections, with recommended lamp section and popular lamp section.
+ * @param navController parent navController to navigate between the screen.
+ * @param viewModel common LampStoreViewModel object.
+ */
 @Composable
 fun HomeScreen(
     navController: NavController,
     viewModel: LampStoreViewModel,
     paddingValues: PaddingValues
 ) {
+    // The var selectedChip variable is used to store the selected chip.
     var selectedChip = remember {
         mutableStateOf("All")
     }
@@ -61,17 +68,21 @@ fun HomeScreen(
     ) {
         HeaderSession()
         ChipsSession(chips = viewModel.getChipList(), selectedChip = selectedChip)
-        RecommendedSession(if (selectedChip.value != LampType.ALL.lampChipName) viewModel.getLampLists().filter { it.lampType.lampChipName == selectedChip.value && it.isRecommended } else viewModel.getLampLists().filter { it.isRecommended }) {
+        RecommendedSection(if (selectedChip.value != LampType.ALL.lampChipName) viewModel.getLampLists().filter { it.lampType.lampChipName == selectedChip.value && it.isRecommended } else viewModel.getLampLists().filter { it.isRecommended }) {
             viewModel.addSelectedLamp(it)
             navController.navigate("detail")
         }
-        PopularSession(if (selectedChip.value != LampType.ALL.lampChipName) viewModel.getLampLists().filter { it.lampType.lampChipName == selectedChip.value && it.isPopular } else viewModel.getLampLists().filter { it.isPopular }) {
+        PopularSection(if (selectedChip.value != LampType.ALL.lampChipName) viewModel.getLampLists().filter { it.lampType.lampChipName == selectedChip.value && it.isPopular } else viewModel.getLampLists().filter { it.isPopular }) {
             viewModel.addSelectedLamp(it)
             navController.navigate("detail")
         }
     }
 }
 
+/**
+ * The HeaderSession() function is used to create the header section of the screen.
+ * Contains the title and sub title and user icon.
+ */
 @Composable
 private fun HeaderSession() {
     Row(
@@ -95,6 +106,9 @@ private fun HeaderSession() {
     }
 }
 
+/**
+ * The ChipsSession() function is used to create the chips section of the screen.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ChipsSession(chips: ArrayList<String>, selectedChip: MutableState<String>) {
@@ -115,8 +129,14 @@ private fun ChipsSession(chips: ArrayList<String>, selectedChip: MutableState<St
     }
 }
 
+/**
+ * The RecommendedSection() function is used to create the recommended section of the screen.
+ * Contains the Recommended title and See ALL button.
+ * @param lamps recommended lamp lists, to display recommended lamp card
+ * @param onLampSelected callback function to call the detail screen with selected lamp info
+ */
 @Composable
-private fun RecommendedSession(lamps: List<LampInfo>, onLampSelected: (lampInfo: LampInfo) -> Unit) {
+private fun RecommendedSection(lamps: List<LampInfo>, onLampSelected: (lampInfo: LampInfo) -> Unit) {
     Column {
         TitleWithSellAll(title = "Recommended")
         RecommendedCard(lamps = lamps) {
@@ -125,8 +145,14 @@ private fun RecommendedSession(lamps: List<LampInfo>, onLampSelected: (lampInfo:
     }
 }
 
+/**
+ * The PopularSection() function is used to create the popular section of the screen.
+ * Contains the Popular title and See ALL button.
+ * @param lamps Popular lamp lists, to display Popular lamp card
+ * @param onLampSelected callback function to call the detail screen with selected lamp info
+ */
 @Composable
-private fun PopularSession(lamps: List<LampInfo>, onLampSelected: (lampInfo: LampInfo) -> Unit) {
+private fun PopularSection(lamps: List<LampInfo>, onLampSelected: (lampInfo: LampInfo) -> Unit) {
     Column {
         TitleWithSellAll(title = "Popular Lamps")
         PopularCard(lamps) {
